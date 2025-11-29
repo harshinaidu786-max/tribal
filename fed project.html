@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Promote Tribal Handicrafts — Support Local Artisans</title>
+  <meta name="description" content="A simple storefront to collect and sell value-added handicrafts made by tribal artisans. Submit items, browse products, and help sustain livelihoods." />
+  <style>
+    :root{
+      --accent:#2b7a78;
+      --accent-2:#f0a500;
+      --bg:#f7f6f3;
+      --card:#ffffff;
+      --muted:#666;
+      --radius:12px;
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:#111;line-height:1.4}
+    .container{max-width:1100px;margin:36px auto;padding:0 18px}
+    header{display:flex;align-items:center;gap:18px}
+    .logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#3ab0a3);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+    h1{margin:0;font-size:1.6rem}
+    p.lead{margin:6px 0 20px;color:var(--muted)}
+    .hero{display:flex;flex-wrap:wrap;gap:20px;align-items:center}
+    .hero-left{flex:1 1 320px}
+    .hero-right{flex:0 1 320px}
+    .card{background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:0 6px 20px rgba(14,14,14,0.06)}
+
+    .cta{display:inline-block;padding:10px 16px;border-radius:10px;background:var(--accent);color:#fff;text-decoration:none}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px;margin-top:18px}
+
+    .product{display:flex;flex-direction:column;border-radius:12px;overflow:hidden;background:linear-gradient(180deg, #fff, #fff);min-height:320px}
+    .product img{display:block;width:100%;height:180px;object-fit:cover}
+    .product-body{padding:12px;flex:1;display:flex;flex-direction:column}
+    .product h3{margin:0 0 8px;font-size:1.05rem}
+    .price{margin-top:auto;font-weight:700;color:var(--accent)}
+
+    .meta{font-size:0.9rem;color:var(--muted)}
+    form input, form textarea, form select{width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #e6e6e6}
+    .btn{display:inline-block;padding:10px 12px;border-radius:10px;border:0;background:var(--accent);color:#fff;cursor:pointer}
+    .btn-secondary{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+    footer{margin:36px 0 80px;color:var(--muted);text-align:center}
+
+    /* small features */
+    .flex{display:flex;gap:12px;align-items:center}
+    .tag{background:#f4f4f4;padding:6px 8px;border-radius:8px;font-size:.85rem}
+    @media (max-width:700px){.hero{flex-direction:column}.hero-right{width:100%}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">TH</div>
+      <div>
+        <h1>Tribal Handicrafts Hub</h1>
+        <p class="lead">Connecting tribal artisans with customers — sell authentic, value‑added handicrafts and share the story behind every item.</p>
+      </div>
+    </header>
+
+    <section class="hero" style="margin-top:18px;">
+      <div class="hero-left card">
+        <h2>How it works</h2>
+        <ol style="padding-left:18px">
+          <li>Local tribal artisans submit handcrafted items through our intake form.</li>
+          <li>We curate, photograph, and list the items on this marketplace.</li>
+          <li>Customers buy directly from the site; profits are shared transparently with artisans.</li>
+        </ol>
+        <p style="margin-top:12px;color:var(--muted)">This demo page includes a client-side submission form so you can preview intake and listing without a backend. When ready we can integrate a server, storage and payment gateway (Razorpay/Stripe).</p>
+        <div style="margin-top:12px" class="flex">
+          <a class="cta" href="#submit">Submit an Item</a>
+          <a class="btn-secondary" href="#products">Browse Products</a>
+        </div>
+      </div>
+
+      <div class="hero-right card" aria-hidden="false">
+        <h3>Featured values</h3>
+        <ul style="padding-left:18px;margin:8px 0">
+          <li>Fair pricing & transparent payouts</li>
+          <li>Sustainable packaging</li>
+          <li>Skills training & design support</li>
+        </ul>
+        <div style="margin-top:10px" class="tag">Community-first</div>
+      </div>
+    </section>
+
+    <section id="products" style="margin-top:26px">
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+          <h2 style="margin:0">Items from Tribals</h2>
+          <div class="meta">Showing community-curated products</div>
+        </div>
+
+        <div id="productGrid" class="grid" style="margin-top:12px">
+          <!-- product cards inserted by JS -->
+        </div>
+      </div>
+    </section>
+
+    <section id="submit" style="margin-top:26px">
+      <div class="card">
+        <h2>Intake / Submit an Item</h2>
+        <p class="meta">Use this form to add an item (demo: adds to the product listing in your browser).</p>
+        <form id="intakeForm">
+          <label>Artisan / Group Name</label>
+          <input type="text" id="artisan" placeholder="Name of artisan or cooperative" required />
+
+          <label>Item Title</label>
+          <input type="text" id="title" placeholder="E.g. Handwoven Bamboo Basket" required />
+
+          <label>Short Description</label>
+          <textarea id="description" rows="3" placeholder="One-sentence about the craft and region"></textarea>
+
+          <div style="display:flex;gap:8px">
+            <div style="flex:1">
+              <label>Price (₹)</label>
+              <input type="number" id="price" placeholder="Enter price in INR" required />
+            </div>
+            <div style="flex:1">
+              <label>Category</label>
+              <select id="category">
+                <option>Textiles</option>
+                <option>Home</option>
+                <option>Jewellery</option>
+                <option>Baskets</option>
+                <option>Decor</option>
+              </select>
+            </div>
+          </div>
+
+          <label>Image URL (or paste a hosted image link)</label>
+          <input type="url" id="image" placeholder="https://example.com/photo.jpg" />
+
+          <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
+            <button class="btn" type="submit">Add Item</button>
+            <button class="btn-secondary" type="button" id="clearStorage">Clear Demo Items</button>
+            <div id="intakeMsg" style="margin-left:8px;color:var(--muted)"></div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section style="margin-top:26px">
+      <div class="card">
+        <h2>Why this matters</h2>
+        <p class="meta">Supporting tribal artisans preserves traditional skills, generates income locally and helps communities reinvest in education and healthcare.</p>
+      </div>
+    </section>
+
+    <footer>
+      <div class="meta">Built for community impact • © <span id="year"></span> Tribal Handicrafts Hub</div>
+      <div style="margin-top:6px"><a href="#" class="meta">Privacy</a> · <a href="#" class="meta">Terms</a> · <a href="#" class="meta">Contact</a></div>
+    </footer>
+  </div>
+
+  <script>
+    // Demo starter products
+    const starter = [
+      {id:1,title:'Handwoven Bamboo Basket',price:650,artisan:'Gadaba Collective',desc:'Handwoven in coastal Andhra, ideal for fruit & storage.',img:'https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=800&q=60',category:'Baskets'},
+      {id:2,title:'Block-printed Scarf',price:1200,artisan:'Dhoba Women Co-op',desc:'Natural dyes, block-printed by tribal artisans.',img:'https://images.unsplash.com/photo-1520975912750-7a2b9b2b4f3f?auto=format&fit=crop&w=800&q=60',category:'Textiles'},
+      {id:3,title:'Terracotta Lamp',price:450,artisan:'Hill Potters',desc:'Hand-moulded terracotta lamp with natural finish.',img:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=60',category:'Decor'}
+    ];
+
+    function saveProducts(arr){localStorage.setItem('tribal_products',JSON.stringify(arr))}
+    function loadProducts(){return JSON.parse(localStorage.getItem('tribal_products')||'null')}
+
+    function render(){
+      let products = loadProducts();
+      if(!products){products=starter;saveProducts(products)}
+      const grid = document.getElementById('productGrid');
+      grid.innerHTML='';
+      products.forEach(p=>{
+        const el = document.createElement('article');
+        el.className='product card';
+        el.innerHTML = `
+          <img src="${p.img}" alt="${p.title}">
+          <div class="product-body">
+            <h3>${p.title}</h3>
+            <div class="meta">By ${p.artisan} · ${p.category}</div>
+            <p style="margin-top:8px;color:var(--muted);font-size:.95rem">${p.desc}</p>
+            <div class="price">₹ ${p.price}</div>
+            <div style="margin-top:8px;display:flex;gap:8px">
+              <button class="btn" onclick="buy(${p.id})">Buy</button>
+              <button class="btn-secondary" onclick="viewStory(${p.id})">Story</button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(el);
+      })
+    }
+
+    function buy(id){
+      const products = loadProducts();
+      const p = products.find(x=>x.id===id);
+      if(!p) return alert('Product not found');
+      alert('Thank you for supporting '+p.artisan+'! (Demo) — Implement payment gateway for real purchases.');
+    }
+    function viewStory(id){
+      const products = loadProducts();
+      const p = products.find(x=>x.id===id);
+      if(!p) return;
+      alert(p.title + '\n\nMade by: '+p.artisan+'\n\n'+p.desc+'\n\nPrice: ₹'+p.price);
+    }
+
+    document.getElementById('intakeForm').addEventListener('submit', function(ev){
+      ev.preventDefault();
+      const artisan = document.getElementById('artisan').value.trim();
+      const title = document.getElementById('title').value.trim();
+      const desc = document.getElementById('description').value.trim();
+      const price = Number(document.getElementById('price').value) || 0;
+      const category = document.getElementById('category').value;
+      const img = document.getElementById('image').value || 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=800&q=60';
+
+      const products = loadProducts() || [];
+      const newProduct = {id:Date.now(),title,price,artisan,desc,img,category};
+      products.unshift(newProduct);
+      saveProducts(products);
+      render();
+      document.getElementById('intakeMsg').textContent = 'Item added to demo listing!';
+      setTimeout(()=>document.getElementById('intakeMsg').textContent='',2200);
+      this.reset();
+    })
+
+    document.getElementById('clearStorage').addEventListener('click', ()=>{
+      if(confirm('Clear demo items and restore starter products?')){
+        localStorage.removeItem('tribal_products');
+        saveProducts(starter);
+        render();
+      }
+    })
+
+    // init
+    render();
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
